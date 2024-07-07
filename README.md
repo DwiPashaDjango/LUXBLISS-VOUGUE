@@ -1,13 +1,37 @@
-## Setup
+# LuxBliss Vogue
 
--   buka direktori project di terminal anda.
--   ketikan command : cp .env.example .env (copy paste file .env.example)
--   buat database
+Aplikasi ini merupakan tugas kelompok mata kuliah RPL (Rekaya Perangkat Lunak) & Agile Scrum Introduction. Aplikasi ini bertujuan untuk memudahkan penyewaan Kebaya & Jas di sekitar daerah cirebon
 
-Lalu ketik command dibawah ini
+## Developer/Pembuat Aplikasi
 
--   composer install
--   php artisan optimize:clear
--   php artisan key:generate (generate app key)
--   php artisan migrate (migrasi database)
--   php artisan db:seed
+- [@Raden Muhamad Rama Poetra Ardiningrat](https://www.instagram.com/rramapoetra/)
+- [@Laeli Jamilah](https://www.instagram.com/laelijmilh/)
+- [@Dwi Pasha Anggara Putra](https://www.instagram.com/dwi_pasha_/)
+
+
+## Penggunan Aplikasi
+
+buka direktori project di terminal anda lalu masuk ke direktori folder LuxBliss Vogue dan ketikan kode di bawah ini
+```php
+cp .env.example .env
+```
+
+Setelah memasukan code di atas masukan juga kode berikut untuk menginstall library yang di gunakan aplikasi LuxBliss Vogue
+```php
+composer install
+```
+
+Setelah itu masukan juga code di bawah ini untuk mengaktifkan apliasinya
+```php
+php artisan optimize:clear
+```
+```php
+php artisan key:generate
+```
+
+Setelah itu tinggal jalankan server aplikasi dengan cara mengetikan code dibawah ini
+``` php
+php artisan serve
+```
+
+Lalu enjoy dan gunakan aplikasi sebaik-baiknya
