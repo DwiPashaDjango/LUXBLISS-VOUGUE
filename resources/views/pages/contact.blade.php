@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="hero-img-wrap mb-3">
+                    <div class="hero-img-wrap" style="margin-left: 100px">
                         <img src="https://www.dusera.com/wp-content/uploads/2021/01/thumpnail-dusera-sewa-kebaya-jakarta.png" class="img-fluid ml-5">
                     </div>
                 </div>

@@ -5,19 +5,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Untree.co">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="{{asset('logo.png')}}">
 
     <meta name="description" content="" />
     <meta name="keywords" content="Tempat sewa kebaya & jas luxbliss vougue" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap CSS -->
     <link href="{{asset('pages')}}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{asset('pages')}}/css/tiny-slider.css" rel="stylesheet">
     <link href="{{asset('pages')}}/css/style.css" rel="stylesheet">
     <title>@yield('title') &mdash; LuxBliss Vogue</title>
+    <style>
+        html {
+        scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {      
+            background: #022414;    
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b5d50;
+            border-radius: 5px;
+        }
+    </style>
     @stack('css')
 </head>
 
@@ -30,7 +48,7 @@
     @yield('content')
 
     <!-- Start Footer Section -->
-    <footer class="footer-section text-white" style="background-color: #407963">
+    <footer class="footer-section text-white" style="background-color: #3b5d50">
         <div class="container relative">
 
             <div class="row g-5 mb-5">
@@ -38,9 +56,17 @@
                     <div class="mb-4 footer-logo-wrap">
                         <img src="{{asset('logo.png')}}" width="70" alt="">
                     </div>
-                    <p class="mb-4">
-                        Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. 
-                        Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant
+                    <p class="mb-2">
+                       Jl. Raya Cempaka arum, Cempaka, Kec. Talun, Kabupaten Cirebon, Jawa Barat 45171
+                    </p>
+                    <p class="mb-2">
+                       Email : luxblissvogue@gmail.com
+                    </p>
+                    <p class="mb-2">
+                       Fax : 45321
+                    </p>
+                    <p class="mb-2">
+                       Telpone : 08xxxxxxxxxx
                     </p>
                 </div>
 
@@ -71,26 +97,21 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
             <div class="border-top copyright">
-                {{-- <p class="mb-2 mt-3 text-center ">
-                    Copyright &copy; {{date('Y')}} LuxBliss Vogue
-                </p> --}}
-                 <ul class="list-unstyled custom-social mt-3 text-center">
+                <ul class="list-unstyled custom-social text-center mt-5" style="padding-bottom: 0">
                     <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
                     <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
                 </ul>
             </div>
-
         </div>
     </footer>
     <!-- End Footer Section -->
 
 
     <script src="{{asset('pages')}}/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
     <script src="{{asset('pages')}}/js/tiny-slider.js"></script>
     <script src="{{asset('pages')}}/js/custom.js"></script>
 
