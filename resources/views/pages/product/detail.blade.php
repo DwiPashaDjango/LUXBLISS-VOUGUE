@@ -93,6 +93,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <a href="{{route('whislist')}}" class="btn btn-outline-primary shadow"><i class="fas fa-heart"></i></a>
                                 <a href="{{route('rent')}}" class="btn btn-primary shadow">Sewa Sekarang</a>
                             </div>
                         </main>
