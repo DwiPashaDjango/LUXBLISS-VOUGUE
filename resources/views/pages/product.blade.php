@@ -38,12 +38,15 @@
             <div class="mb-3" style="padding-bottom: 50px">
                 <form action="">
                     <div class="d-flex justify-content-between">
-                        <div></div>
+                        <div>
+                        </div>
                         <div>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Search..." style="border: 1px solid #407963">
                                 <div class="input-group-append">
-                                    <button class="btn" style="height:100%; background-color: #407963; border: none; color: #fff; border-radius: 0 10px 10px 0" type="button"><i class="fas fa-search"></i></button>
+                                    <button class="btn" style="height:100%; background-color: #407963; border: none; color: #fff; border-radius: 0 10px 10px 0" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +54,6 @@
                 </form>
             </div>
             <div class="row">
-
                 <!-- Start Column 2 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5">
                     <a class="product-item" href="{{route('product.show')}}">

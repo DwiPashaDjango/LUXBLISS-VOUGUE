@@ -17,14 +17,14 @@
                 <li class="nav-item {{request()->is('products*') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('product')}}">Koleksi</a>
                 </li>
+                <li class="nav-item {{request()->is('renteds') ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('rented')}}">PenyewaanKu</a>
+                </li>
                 <li class="nav-item {{request()->is('abouts') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('about')}}">Tentang Kami</a>
                 </li>
                 <li class="nav-item {{request()->is('contacts') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('contact')}}">Hubungi Kami</a>
-                </li>
-                <li class="nav-item {{request()->is('renteds') ? 'active' : ''}}">
-                    <a class="nav-link" href="{{route('rented')}}">PenyewaanKu</a>
                 </li>
             </ul>
 

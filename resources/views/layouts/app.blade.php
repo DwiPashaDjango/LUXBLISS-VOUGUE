@@ -35,6 +35,12 @@
             background: #3b5d50;
             border-radius: 5px;
         }
+
+        @media only screen and (max-width: 820px) {
+            .hero-img-wrap img {
+                width: 100%
+            }
+        }
     </style>
     @stack('css')
 </head>

@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="hero-img-wrap" style="margin-left: 100px">
+                    <div class="hero-img-wrap" style="margin-left: 100px;">
                         <img src="https://www.dusera.com/wp-content/uploads/2021/01/thumpnail-dusera-sewa-kebaya-jakarta.png" class="img-fluid ml-5">
                     </div>
                 </div>
@@ -101,13 +101,15 @@
     <!-- End Product Section -->
 
     <!-- Start Why Choose Us Section -->
-    <div class="why-choose-section">
+    <div class="we-help-section">
         <div class="container">
             <div class="row justify-content-between">
                 
                 <div class="col-lg-5">
-                    <div class="img-wrap">
-                        <img src="https://www.dusera.com/wp-content/uploads/2021/01/thumpnail-dusera-sewa-kebaya-jakarta.png" alt="Image" class="img-fluid">
+                    <div class="imgs-grid">
+                        <div class="grid grid-1"><img src="{{asset('asset/product/kebaya-bali-no-bg-2.jpg')}}" alt="Untree.co"></div>
+                        <div class="grid grid-2"><img src="{{asset('asset/product/jas-no-bg-2.jpg')}}" alt="Untree.co"></div>
+                        <div class="grid grid-3"><img src="{{asset('asset/product/kebaya-bali-no-bg-3.jpg')}}" alt="Untree.co"></div>
                     </div>
                 </div>
 
@@ -175,19 +177,40 @@
     <div class="we-help-section">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-lg-5 ps-lg-5">
-                    <h2 class="section-title mb-4">Kami Membantu Anda Untuk Memilih Desain Kebaya Dan Jas Yang Modern Dan Simple</h2>
-                    <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                <div class="col-lg-6 ps-lg-5">
+                    <h2 class="section-title mb-4">Panduan Penggunaan</h2>
+                    <p>
+                        Selamat datang di aplikasi penyewaan kebaya dan jas kami! Berikut adalah langkah-langkah mudah untuk menggunakan aplikasi ini.
+                    </p>
 
-                    <ul class="list-unstyled custom-list my-4">
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
-                        <li>Donec vitae odio quis nisl dapibus malesuada</li>
+                    <ul class="list-unstyled custom-list my-4" style="list-style-position: inside; word-break: break-all;"> 
+                        <li>
+                            Cari jas atau kebaya yang Anda inginkan. Anda bisa mencari berdasarkan kategori, warna, ukuran, atau desain tertentu.
+                        </li>
+                        <li style="margin-left: 20px">
+                            Klik pada produk yang Anda minati untuk melihat detailnya. Anda akan melihat deskripsi produk, ukuran yang tersedia, bahan, dan harga sewa.
+                        </li>
+                        <li>
+                            Pastikan produk yang Anda pilih tersedia pada tanggal yang Anda inginkan. Anda bisa memeriksa kalender ketersediaan yang disediakan di halaman detail produk
+                        </li>
+                        <li style="margin-left: 20px">
+                            Jika produk tersedia dan sesuai dengan yang anda inginkan silahkan klik tombol sewa untuk melakukan penyewaan, Maka anda akan di arahkan ke halaman pembayaran
+                        </li>
+                        <li>
+                            Pada halaman pembayaran, pilih metode pembayaran yang Anda inginkan. Opsi yang tersedia antara lain, E-Wallet (misalnya OVO, GoPay, Dana)/Transfer Bank
+                        </li>
+                        <li style="margin-left: 20px">
+                           Untuk pengembalian, pastikan produk dalam kondisi baik. Jika pengembalian telat dari tenggat waktu yang ditetapkan maka akan terkena denda Rp.20.000
+                        </li>
+                        <li>
+                           Jika produk dalam keadaan rusak/hilang maka penyewa akan di kenakan biaya ganti rugi sebesar 2x lipat harga penyewaan produk
+                        </li>
+                        <li style="margin-left: 20px">
+                           Lalu silahkan memilih metode pengembalian bisa menggunakan jasa kurir(JNE/J&T/Ninja) atau bisa langsung di kembalikan ke toko
+                        </li>
                     </ul>
-                    <p><a herf="#" class="btn">Selengkapnya</a></p>
                 </div>
-                <div class="col-lg-7 mb-5 mb-lg-0">
+                <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="imgs-grid">
                         <div class="grid grid-1"><img src="{{asset('asset/product/kebaya-jawa-no-bg.jpg')}}" alt="Untree.co"></div>
                         <div class="grid grid-2"><img src="{{asset('asset/product/kebaya-bali-no-bg.jpg')}}" alt="Untree.co"></div>

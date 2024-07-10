@@ -18,30 +18,172 @@
         </div>
 
         <div class="py-2">
-            <div class="d-flex justify-content-start">
-                <div class="card p-3 bg-white">
-                    <div class="about-product text-center mt-2">
-                        <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
-                        <div>
-                            <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card p-3 mb-3 rounded-lg bg-white">
+                        <div class="about-product text-center mt-2">
+                            <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
+                            <div>
+                                <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+                            </div>
+                        </div>
+                        <div class="stats mt-2">
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Sewa</span>
+                                <span>2 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Selesai Sewa</span>
+                                <span>3 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Denda</span>
+                                <span>Rp. 0</span>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex justify-content-between p-price">
+                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="stats mt-2">
-                        <div class="d-flex justify-content-between p-price">
-                            <span>Tanggal Sewa</span>
-                            <span>2 Juli 2024</span>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card p-3 mb-3 rounded-lg bg-white">
+                        <div class="about-product text-center mt-2">
+                            <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
+                            <div>
+                                <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between p-price">
-                            <span>Tanggal Selesai Sewa</span>
-                            <span>3 Juli 2024</span>
+                        <div class="stats mt-2">
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Sewa</span>
+                                <span>2 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Selesai Sewa</span>
+                                <span>3 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Denda</span>
+                                <span>Rp. 0</span>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex justify-content-between p-price">
+                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between p-price">
-                            <span>Denda</span>
-                            <span>Rp. 0</span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card p-3 mb-3 rounded-lg bg-white">
+                        <div class="about-product text-center mt-2">
+                            <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
+                            <div>
+                                <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+                            </div>
                         </div>
-                        <hr class="divide">
-                        <div class="d-flex justify-content-between p-price">
-                            <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                        <div class="stats mt-2">
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Sewa</span>
+                                <span>2 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Selesai Sewa</span>
+                                <span>3 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Denda</span>
+                                <span>Rp. 0</span>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex justify-content-between p-price">
+                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card p-3 mb-3 rounded-lg bg-white">
+                        <div class="about-product text-center mt-2">
+                            <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
+                            <div>
+                                <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+                            </div>
+                        </div>
+                        <div class="stats mt-2">
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Sewa</span>
+                                <span>2 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Selesai Sewa</span>
+                                <span>3 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Denda</span>
+                                <span>Rp. 0</span>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex justify-content-between p-price">
+                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card p-3 mb-3 rounded-lg bg-white">
+                        <div class="about-product text-center mt-2">
+                            <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
+                            <div>
+                                <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+                            </div>
+                        </div>
+                        <div class="stats mt-2">
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Sewa</span>
+                                <span>2 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Selesai Sewa</span>
+                                <span>3 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Denda</span>
+                                <span>Rp. 0</span>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex justify-content-between p-price">
+                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card p-3 mb-3 rounded-lg bg-white">
+                        <div class="about-product text-center mt-2">
+                            <img src="{{asset('asset/product/kebaya-2.png')}}" width="200">
+                            <div>
+                                <h4 class="py-3">Kebaya Adat Bali Wanita - Putih</h4>
+                            </div>
+                        </div>
+                        <div class="stats mt-2">
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Sewa</span>
+                                <span>2 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Tanggal Selesai Sewa</span>
+                                <span>3 Juli 2024</span>
+                            </div>
+                            <div class="d-flex justify-content-between p-price">
+                                <span>Denda</span>
+                                <span>Rp. 0</span>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex justify-content-between p-price">
+                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                            </div>
                         </div>
                     </div>
                 </div>

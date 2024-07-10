@@ -83,11 +83,11 @@
                                     <div class="col-md-6 col-6 mb-3">
                                         <label class="mb-2 d-block">Jumlah</label>
                                         <div class="input-group mb-3" style="width: 170px;">
-                                            <button class="btn btn-warning px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                            <button class="btn btn-warning px-3 decrease" type="button" id="button-addon1" data-mdb-ripple-color="dark">
                                                 <i class="fas fa-minus"></i>
                                             </button>
                                             <input type="text" class="form-control text-center" value="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                            <button class="btn btn-primary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                            <button class="btn btn-primary px-3 increase" type="button" id="button-addon2" data-mdb-ripple-color="dark">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
@@ -116,12 +116,32 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="ex1-content">
-                                <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                                <div class="tab-pane fade show active" style="padding-left: 20px;" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
                                     <p>
-                                        With supporting text below as a natural lead-in to additional content. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        <b>Detail Kebaya</b>
                                     </p>
+                                    <ul>
+                                        <li>Bahan: Lace bordir premium,furing Roberto Cavali</li>
+                                        <li>Payet sulam manual</li>
+                                        <li>Panjang baju: 80 cm</li>
+                                        <li>FREE SELENDANG & OBI BELT</li>
+                                    </ul>
+                                    <p>
+                                        <b>Size Kebaya</b>
+                                    </p>
+                                    <ul>
+                                        <li>M: Lingkar dada 100cm (BB 45-49)</li>
+                                        <li>L: Lingkar dada 102cm (BB 50-59)</li>
+                                        <li>XL: Lingkar dada 105cm (BB 60-65)</li>
+                                    </ul>
+                                    <p>
+                                        <b>Detail Rok Batik</b>
+                                    </p>
+                                    <ul>
+                                        <li>Bahan: KATUN PRIMA HALUS</li>
+                                        <li>Terdapat karet di kanan dan kiri belahan terbuka sedikit dibelakang untuk jalan</li>
+                                        <li>Panjang rok : 95-100cm</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -138,12 +158,87 @@
                             </ul>
                             <hr class="divide">
                             <div class="d-flex flex-start mb-4">
-                                <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65" height="65" />
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{asset('foto/nanda.jpg')}}" alt="avatar" width="65" height="65" />
                                 <div class="flex-grow-1 flex-shrink-1">
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="mb-1">
-                                                Maria Smantha <span class="small">- 2 hours ago</span>
+                                                Ananda Irfan Faradilah <span class="small">- 2 hours ago</span>
+                                            </p>
+                                        </div>
+                                        <p class="small mb-0">
+                                            Kualitas Bahan Bagus. Kualitas Manik Manik Bagus. Yang Gak Bagus Cuma Kurirnya Gak Bisa Di Ajak BAKU HANTAM
+                                        </p>
+                                        <p>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <img src="{{asset('asset/product/kebaya-2.png')}}" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <img src="{{asset('asset/product/kebaya-2.png')}}" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex flex-start mb-4">
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{asset('foto/jidan.jpg')}}" alt="avatar" width="65" height="65" />
+                                <div class="flex-grow-1 flex-shrink-1">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-1">
+                                                Jidan Jamilah <span class="small">- 2 hours ago</span>
+                                            </p>
+                                        </div>
+                                        <p class="small mb-0">
+                                            Kulaitas Bahan Kurang Bagus. Sistem Penyewaan Ribet Seriber Kisah Cinta Saya dan Mbak L
+                                        </p>
+                                        <p>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <img src="{{asset('asset/product/kebaya-2.png')}}" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <img src="{{asset('asset/product/kebaya-2.png')}}" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex flex-start mb-4">
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{asset('asset/team/laeli.jpg')}}" alt="avatar" width="65" height="65" />
+                                <div class="flex-grow-1 flex-shrink-1">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-1">
+                                                Laeli Al Jaiutun Bin Khosim <span class="small">- 2 hours ago</span>
+                                            </p>
+                                        </div>
+                                        <p class="small mb-0">
+                                            Playstationnya bagus bisa maen game sumertime saga dengan sangat lancar
+                                        </p>
+                                        <p>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <img src="data:image/jpeg;base64,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" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="divide">
+                            <div class="d-flex flex-start mb-4">
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{asset('foto/rama.jpg')}}" alt="avatar" width="65" height="65" />
+                                <div class="flex-grow-1 flex-shrink-1">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-1">
+                                                Rama & Albert Lope Lope <span class="small">- 2 hours ago</span>
                                             </p>
                                         </div>
                                         <p class="small mb-0">
@@ -154,16 +249,26 @@
                             </div>
                             <hr class="divide">
                             <div class="d-flex flex-start mb-4">
-                                <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65" height="65" />
+                                <img class="rounded-circle shadow-1-strong me-3" src="{{asset('foto/dwi.jpg')}}" alt="avatar" width="65" height="65" />
                                 <div class="flex-grow-1 flex-shrink-1">
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="mb-1">
-                                                Maria Smantha <span class="small">- 2 hours ago</span>
+                                                Dwi Panglima Kerajaan Bayang <span class="small">- 2 hours ago</span>
                                             </p>
                                         </div>
                                         <p class="small mb-0">
-                                            It is a long established fact that a reader will be distracted by the readable content of a page.
+                                            Penjual tidak ramah masa mau ngutang tidak bisa toko macam apa ini
+                                        </p>
+                                        <p>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <img src="{{asset('asset/product/kebaya-2.png')}}" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <img src="{{asset('asset/product/kebaya-2.png')}}" width="200" class="img-thumbnail" alt="">
+                                                </div>
+                                            </div>
                                         </p>
                                     </div>
                                 </div>
@@ -176,8 +281,8 @@
                             <form action="" method="POST">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <label for="" class="mb-2"><b>Pesan/Kesan</b></label>
-                                    <textarea name="" id="" placeholder="Pesan/Kesan" cols="30" rows="3" class="form-control"></textarea>
+                                    <label for="" class="mb-2"><b>Ulasan</b></label>
+                                    <textarea name="" id="" placeholder="Ulasan" cols="30" rows="3" class="form-control"></textarea>
                                 </div>
 
                                 <div class="d-flex justify-content-end">
@@ -190,7 +295,10 @@
                 <div class="col-lg-4">
                     <div class="card shadow px-0">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">Produk Terbaru</h5>
+                            <h5 class="card-title mb-3">
+                                <b>Produk Terbaru</b>
+                            </h5>
+                            <hr class="divide">
                             <div class="d-flex mb-3">
                                 <a href="#" class="me-3">
                                     <img src="{{asset('asset/product/jas-1.png')}}" style="height: 100%;" width="80" class="img-md img-thumbnail" />

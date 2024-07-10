@@ -42,34 +42,6 @@
                                 </td>
                             </tr>
                             <tr> 
-                                <td style="padding-bottom: 20px">Durasi Penyewaan</td>
-                                <td style="padding-bottom: 20px"></td>
-                                <td style="padding-bottom: 20px">
-                                    <select name="" id="" class="form-control" style="height: 35%; border: 2px solid #198754">
-                                        <option value="">- Pilih -</option>
-                                        @php
-                                            $durasi = [
-                                                [
-                                                    "name" => "1 Hari",
-                                                    "price" => 200000
-                                                ],
-                                                [
-                                                    "name" => "3 Hari",
-                                                    "price" => 250000
-                                                ],
-                                                [
-                                                    "name" => "7 Hari",
-                                                    "price" => 300000
-                                                ],
-                                            ];
-                                        @endphp 
-                                        @foreach ($durasi as $ds)
-                                            <option value="{{$ds['name']}}">{{$ds['name']}} - {{number_format($ds['price'], 2)}}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr> 
                                 <td>Opsi Pengiriman</td>
                                 <td></td>
                                 <td>
@@ -281,7 +253,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <h2 class="h3 mb-3 text-black"> <i class="fas fa-clipboard-list" style="color: #198754"></i> Rincian Pembayaran</h2>
+                        <h2 class="h3 mb-3 text-black"> <i class="fas fa-clipboard-list" style="color: #198754"></i> Rincian Pengembalian</h2>
                         <div class="card rounded mb-5">
                             <div class="card-body">
                                 <table style="width: 100%">
