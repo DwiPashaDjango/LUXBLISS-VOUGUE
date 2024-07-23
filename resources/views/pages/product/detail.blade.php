@@ -286,21 +286,23 @@
                         </div>
                     </div>
 
-                    <div class="card shadow mt-2">
-                        <div class="card-body">
-                            <form action="" method="POST">
-                                @csrf
-                                <div class="form-group mb-3">
-                                    <label for="" class="mb-2"><b>Ulasan</b></label>
-                                    <textarea name="" id="" placeholder="Ulasan" cols="30" rows="3" class="form-control"></textarea>
-                                </div>
+                    @auth
+                        <div class="card shadow mt-2">
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                    @csrf
+                                    <div class="form-group mb-3">
+                                        <label for="" class="mb-2"><b>Ulasan</b></label>
+                                        <textarea name="" id="" placeholder="Ulasan" cols="30" rows="3" class="form-control"></textarea>
+                                    </div>
 
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Kirim</button>
-                                </div>
-                            </form>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Kirim</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    @endauth
                 </div>
                 <div class="col-lg-4">
                     <div class="card shadow px-0">

@@ -38,63 +38,24 @@
     <div class="product-section">
         <div class="container">
             <div class="row">
+                @foreach ($product as $item)
+                    <!-- Start Column 2 -->
+                    <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                        <a class="product-item" href="{{route('product.show', ['id' => $item->id])}}">
+                            @php
+                                $image = explode('|', $item->image);
+                            @endphp
+                            <img src="{{asset($image[0])}}" class="img-fluid product-thumbnail">
+                            <h3 class="product-title">{{$item->nm_produk}}.</h3>
+                            <strong class="product-price">Rp. {{number_format($item->harga)}}</strong>
 
-                <!-- Start Column 2 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="#">
-                        <img src="{{asset('asset/product/paket-1.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Baju Kebaya Adat Jawa Pria & Wanita.</h3>
-                        <strong class="product-price">Rp. 125.000</strong>
-
-                        <span class="icon-cross">
-                            <img src="{{asset('asset/heart.png')}}" width="18" class="img-fluid">
-                        </span>
-                    </a>
-                </div>
-                <!-- End Column 2 -->
-
-                <!-- Start Column 3 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="#">
-                        <img src="{{asset('asset/product/kebaya-1.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Baju Kebaya Adat Jawa (Wanita).</h3>
-                        <strong class="product-price">Rp. 150.000</strong>
-
-                        <span class="icon-cross">
-                            <img src="{{asset('asset/heart.png')}}" width="18" class="img-fluid">
-                        </span>
-                    </a>
-                </div>
-                <!-- End Column 3 -->
-
-                <!-- Start Column 4 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="#">
-                        <img src="{{asset('asset/product/kebaya-2.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Baju Kebaya Adat Bali (Wanita).</h3>
-                        <strong class="product-price">Rp. 130.000</strong>
-
-                        <span class="icon-cross">
-                            <img src="{{asset('asset/heart.png')}}" width="18" class="img-fluid">
-                        </span>
-                    </a>
-                </div>
-                <!-- End Column 4 -->
-
-                <!-- Start Column 4 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="#">
-                        <img src="{{asset('asset/product/jas-1.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Jas Tuxedo Putih (Pria).</h3>
-                        <strong class="product-price">Rp. 260.000</strong>
-
-                        <span class="icon-cross">
-                            <img src="{{asset('asset/heart.png')}}" width="18" class="img-fluid">
-                        </span>
-                    </a>
-                </div>
-                <!-- End Column 4 -->
-
+                            <span class="icon-cross">
+                                <img src="{{asset('asset/heart.png')}}" width="18" class="img-fluid">
+                            </span>
+                        </a>
+                    </div>
+                    <!-- End Column 2 -->
+                @endforeach
             </div>
         </div>
     </div>

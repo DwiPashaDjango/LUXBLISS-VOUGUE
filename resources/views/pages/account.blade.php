@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+<form action="#" method="POST">
+    @csrf
     <div class="container">
         <div class="row py-3">
             <div class="col-lg-8">
@@ -20,21 +22,21 @@
                                 <td style="padding-bottom:15px; width:25%;">Nama Lengkap</td>
                                 <td style="padding-bottom:15px; width:10%;"></td>
                                 <td style="padding-bottom:15px; width:65%;">
-                                    <input class="form-control" style="border:2px solid #198754; width:100%; height:40px;" type="text" placeholder="Masukkan Nama Lengkap">
+                                    <input class="form-control" style="border:2px solid #198754; width:100%; height:40px;" value="{{Auth::user()->name}}" type="text" placeholder="Masukkan Nama Lengkap">
                                 </td>                                
                             </tr>
                             <tr>
                                 <td style="padding-bottom:15px; width:25%;">Email</td>
                                 <td style="padding-bottom:15px; width:10%;"></td>
                                 <td style="padding-bottom:15px; width:65%;">
-                                    <input class="form-control" style="border:2px solid #198754; width:100%; height:40px;" type="text" placeholder="Masukkan Email">
+                                    <input class="form-control" style="border:2px solid #198754; width:100%; height:40px;" value="{{Auth::user()->email}}" type="text" placeholder="Masukkan Email">
                                 </td>                               
                             </tr>
                             <tr>
                                 <td style="padding-bottom:15px; width:25%;">Nomor Telepon</td>
                                 <td style="padding-bottom:15px; width:10%;"></td>
                                 <td style="padding-bottom:15px; width:65%;">
-                                    <input class="form-control" style="border:2px solid #198754; width:100%; height:40px;" type="text" placeholder="Masukkan No Telepon     ">
+                                    <input class="form-control" style="border:2px solid #198754; width:100%; height:40px;" value="084512356889" type="text" placeholder="Masukkan No Telepon     ">
                                 </td>                               
                             </tr>
                             <tr>
@@ -71,7 +73,7 @@
                 <br>
                 <button class="btn" style="background-color: transparent; color: #198754; border: 2px solid #198754;">Pilih Gambar</button>
             </div>
-            
         </div>
     </div>
+</form>
 @endsection
