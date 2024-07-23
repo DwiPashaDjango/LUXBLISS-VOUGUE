@@ -20,14 +20,30 @@
                     <img src="{{asset('logo.png')}}" width="50" alt="">
                 </div>
                 <hr class="divide">
-                <form action="#" class="login-form">
+                @if (session()->has('message'))
+                    <div class="alert alert-danger">
+                        {{session()->get('message')}}
+                    </div>
+                @endif
+                <form action="{{route('login.check')}}" method="POST" class="login-form">
+                    @csrf
                     <div class="form-group mb-3">
                         <label for="" class="mb-2">Email Addres</label>
-                        <input type="text" class="form-control rounded-left" style="border: 1px solid #198754" placeholder="Email">
+                        <input type="text" name="email" value="{{old('email')}}" class="form-control rounded-left @error('email') is-invalid @enderror" style="border: 1px solid #198754" placeholder="Email">
+                        @error('email')
+                            <span class="invalid-feedback">
+                                {{$message}}
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group mb-3">
                         <label for="" class="mb-2">Password</label>
-                        <input type="password" class="form-control rounded-left" style="border: 1px solid #198754" placeholder="Password">
+                        <input type="password" name="password" class="form-control rounded-left @error('password') is-invalid @enderror" style="border: 1px solid #198754" placeholder="Password">
+                        @error('password')
+                            <span class="invalid-feedback">
+                                {{$message}}
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <button type="submit" class="form-control btn rounded submit px-3" style="background-color: #198754; color: #fff; font: bold">

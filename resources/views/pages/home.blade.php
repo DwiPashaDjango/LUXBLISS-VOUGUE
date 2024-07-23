@@ -41,7 +41,7 @@
 
                 <!-- Start Column 2 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="{{route('product.show')}}">
+                    <a class="product-item" href="#">
                         <img src="{{asset('asset/product/paket-1.png')}}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Baju Kebaya Adat Jawa Pria & Wanita.</h3>
                         <strong class="product-price">Rp. 125.000</strong>
@@ -55,7 +55,7 @@
 
                 <!-- Start Column 3 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="{{route('product.show')}}">
+                    <a class="product-item" href="#">
                         <img src="{{asset('asset/product/kebaya-1.png')}}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Baju Kebaya Adat Jawa (Wanita).</h3>
                         <strong class="product-price">Rp. 150.000</strong>
@@ -69,7 +69,7 @@
 
                 <!-- Start Column 4 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="{{route('product.show')}}">
+                    <a class="product-item" href="#">
                         <img src="{{asset('asset/product/kebaya-2.png')}}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Baju Kebaya Adat Bali (Wanita).</h3>
                         <strong class="product-price">Rp. 130.000</strong>
@@ -83,7 +83,7 @@
 
                 <!-- Start Column 4 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="{{route('product.show')}}">
+                    <a class="product-item" href="#">
                         <img src="{{asset('asset/product/jas-1.png')}}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Jas Tuxedo Putih (Pria).</h3>
                         <strong class="product-price">Rp. 260.000</strong>

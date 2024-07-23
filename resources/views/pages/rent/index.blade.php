@@ -6,12 +6,31 @@
 
 @push('css')
    <style>
-
-   </style>
+        .multiline-truncate {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 @endpush        
 
 @section('content')
+<form action="{{route('users.updatePaidRent', ['invoice' => $rents->invoice])}}" method="POST">
+    @csrf
+    @method("PUT")
     <div class="container py-5">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $errors)
+                        <li>
+                            {{$errors}}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black"> <i class="fas fa-map-marker-alt" style="color: #198754;"></i> Alamat Pengiriman</h2>
@@ -20,11 +39,12 @@
                         <a href="javascript:void(0)" class="btn btn-primary btn-sm mb-3" style="border-radius: 30px"><i class="fas fa-pencil" style="font-size: 12px"></i></a>
                         <div style="border: 2px dashed #198754; border-radius: 5px; padding: 10px; height: 23vh;">
                             <p style="word-break: break-all">
-                                Raden Muhamad Rama Poetra Ardinigrat
+                                {{$rents->user->name}}
                                 <br>
-                                0874562023856325
+                                {{$rents->user->telp}}
                                 <br>
                                 <br>
+                                {{$rents->user->alamat}}
                             </p>
                         </div>
                     </div>
@@ -38,42 +58,14 @@
                                 <td style="padding-bottom: 20px">Pesan</td>
                                 <td style="padding-bottom: 20px"></td>
                                 <td style="padding-bottom: 20px">
-                                    <input type="text" name="" id="" class="form-control" placeholder="(Optional) Tinggal Pesan Ke Toko" style="height: 35%; border: 2px solid #198754">
-                                </td>
-                            </tr>
-                            <tr> 
-                                <td style="padding-bottom: 20px">Durasi Penyewaan</td>
-                                <td style="padding-bottom: 20px"></td>
-                                <td style="padding-bottom: 20px">
-                                    <select name="" id="" class="form-control" style="height: 35%; border: 2px solid #198754">
-                                        <option value="">- Pilih -</option>
-                                        @php
-                                            $durasi = [
-                                                [
-                                                    "name" => "1 Hari",
-                                                    "price" => 200000
-                                                ],
-                                                [
-                                                    "name" => "3 Hari",
-                                                    "price" => 250000
-                                                ],
-                                                [
-                                                    "name" => "7 Hari",
-                                                    "price" => 300000
-                                                ],
-                                            ];
-                                        @endphp 
-                                        @foreach ($durasi as $ds)
-                                            <option value="{{$ds['name']}}">{{$ds['name']}} - {{number_format($ds['price'], 2)}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" name="catatan" id="catatan" class="form-control" placeholder="(Optional) Tinggal Pesan Ke Toko" style="height: 35%; border: 2px solid #198754">
                                 </td>
                             </tr>
                             <tr> 
                                 <td>Opsi Pengiriman</td>
                                 <td></td>
                                 <td>
-                                    <select name="" id="" class="form-control" style="height: 35%; border: 2px solid #198754">
+                                    <select name="jasa_kirim" id="jasa_kirim" class="form-control" style="height: 35%; border: 2px solid #198754">
                                         <option value="">- Pilih -</option>
                                         @php
                                             $pengiriman = [
@@ -92,7 +84,7 @@
                                             ];
                                         @endphp 
                                         @foreach ($pengiriman as $pn)
-                                            <option value="{{$pn['name']}}">{{$pn['name']}} - {{number_format($pn['price'], 2)}}</option>
+                                            <option value="{{$pn['name']}}">{{$pn['name']}} - {{number_format($pn['price'])}}</option>
                                         @endforeach
                                     </select>
                                 </td>
@@ -110,16 +102,19 @@
                                 <div class="row gx-5">
                                     <aside class="col-lg-4">
                                         <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                            <img style="max-width: 100%; height: 16vh; margin: auto;" class="rounded-4 fit" src="{{asset('asset/product/kebaya-2.png')}}" />
+                                            @php
+                                                $image = explode('|', $rents->product->image);
+                                            @endphp
+                                            <img style="max-width: 100%; height: 16vh; margin: auto;" class="rounded-4 fit" src="{{asset($image[0])}}" />
                                         </div>
                                     </aside>
                                     <main class="col-lg-8">
                                         <div class="ps-lg">
                                             <h4 class="title text-dark">
-                                                Baju Kebaya Wanita Ada Bali (Putih)
+                                                {{$rents->product->nm_produk}} - {{$rents->product->warna}}
                                             </h4>
-                                            <p>
-                                                Modern look and quality demo item is a streetwear-inspired streetwear-inspired st
+                                            <p class="multiline-truncate">
+                                                {{$rents->product->deskripsi_singkat}}
                                             </p>
                                         </div>
                                     </main>
@@ -127,14 +122,18 @@
                                         <div class="ps-lg">
                                             <table class="table table-bordered text-center">
                                                 <tr>
+                                                    <th>Ukuran</th>
                                                     <th>Harga</th>
                                                     <th>Jumlah</th>
                                                     <th>Subtotal</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Rp. 240.000</td>
-                                                    <td>2</td>
-                                                    <td>Rp. 450.000</td>
+                                                    <td>{{$rents->size}}</td>
+                                                    <td>{{number_format($rents->product->harga)}}</td>
+                                                    <td>{{$rents->qty}}</td>
+                                                    <td>
+                                                        Rp. {{number_format($rents->qty * $rents->product->harga)}} 
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -179,7 +178,7 @@
                                             @foreach ($ewallet as $index => $wl)
                                                 <div class="d-flex align-items-center justify-content-between p-3 customRounded">
                                                     <div class="d-flex align-items-center">
-                                                        <input type="radio" name="paymentMethood" id="customAmount-{{$index}}">
+                                                        <input type="radio" value="{{$wl['name']}}" name="pembayaran" id="customAmount-{{$index}}">
                                                         <label for="customAmount-{{$index}}" class="ms-3">
                                                             <strong>{{$wl['name']}}</strong><br />
                                                         </label>
@@ -226,7 +225,7 @@
                                                 @foreach ($transfer as $index => $tf)
                                                     <div class="d-flex align-items-center justify-content-between p-3 customRounded">
                                                         <div class="d-flex align-items-center">
-                                                            <input type="radio" name="paymentMethood" id="customAmount-{{$index}}">
+                                                            <input type="radio" value="{{$tf['name']}}" name="pembayaran" id="customAmount-{{$index}}">
                                                             <label for="customAmount-{{$index}}" class="ms-3">
                                                                 <strong>Bank {{$tf['name']}}</strong><br />
                                                             </label>
@@ -251,22 +250,33 @@
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Subtotal Produk</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 480.000</td>
+                                        <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($rents->qty * $rents->product->harga)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Ongkos Kirim</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 10.000</td>
+                                        <td style="width: 30%; padding-bottom: 8px" id="jasa_kirim_append"></td>
                                     </tr>
                                     <tr>
+                                        @php
+                                            $startDate = \Carbon\Carbon::parse($rents->start_date);
+                                            $endDate = \Carbon\Carbon::parse($rents->end_date);
+
+                                            $numberOfDay = $startDate->diffInDays($endDate);
+
+                                            if($numberOfDay == 1) {
+                                                $priceSewa = 150000;
+                                            } elseif($numberOfDay >= 2) {
+                                                $priceSewa = 250000;
+                                            } elseif($numberOfDay >= 3) {
+                                                $priceSewa = 350000;
+                                            } else {
+                                                $priceSewa = 400000;
+                                            }
+                                        @endphp
                                         <td style="width: 30%; padding-bottom: 8px">Durasi Penyewaan</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 10.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 30%; padding-bottom: 8px">Biaya Layanan</td>
-                                        <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 10.000</td>
+                                        <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($priceSewa)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">
@@ -274,13 +284,17 @@
                                         </td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
                                         <td style="width: 30%; padding-bottom: 8px">
-                                            <h6>Rp. 741.000</h6>
+                                            @php
+                                                $GrandTotal = $rents->qty * $rents->product->harga;
+                                            @endphp
+                                            <h6 id="grand-total"></h6>
                                         </td>
                                     </tr>
+                                    <input type="hidden" name="total" id="total">
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px" colspan="3">
                                             <hr class="divide">
-                                            <a href="{{route('alert.rent', ['title' => 'Terima Kasih !', 'message' => 'Berhasil melakukan penyewaan'])}}" class="btn btn-primary w-100">Buat Penyewaan</a>
+                                            <button type="submit" class="btn btn-primary w-100">Buat Penyewaan</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -292,4 +306,42 @@
         </div>
         <!-- </form> -->
     </div>
+</form>
 @endsection
+
+@push('js')
+    <script>
+        const pengiriman = [
+            { name: "JNE", price: 20000 },
+            { name: "J&T", price: 15000 },
+            { name: "Ninja", price: 10000 }
+        ];
+
+        const selectElement = document.getElementById('jasa_kirim');
+        const priceElement = document.getElementById('jasa_kirim_append');
+        const grandTotals = document.getElementById('grand-total');
+        const totals = document.getElementById('total');
+
+        priceElement.textContent = "Rp. " + 0;
+        const initialTotals = Number({{$GrandTotal + $priceSewa}});
+
+        grandTotals.textContent =  "RP. " + initialTotals.toLocaleString();
+        
+        selectElement.addEventListener('change', function() {
+            const selectedName = this.value;
+            const selectedShipping = pengiriman.find(item => item.name === selectedName);
+            
+            let shippingPrice = 0;
+            if (selectedShipping) {
+                shippingPrice = selectedShipping.price;
+                priceElement.textContent = "Rp. " + selectedShipping.price.toLocaleString();
+            } else {
+                priceElement.textContent = "Rp. " + 0;
+            }
+
+            const totalWithShipping = initialTotals + shippingPrice;
+            grandTotals.textContent = "Rp. " + totalWithShipping.toLocaleString();
+            totals.value = totalWithShipping;
+        });
+    </script>
+    @endpush

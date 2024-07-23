@@ -6,101 +6,134 @@
 
 @push('css')
     <link rel="stylesheet" href="{{asset('pages/css/detail-product.css')}}">
+    <style>
+        .multiline-truncate {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/magnific-popup.min.css">
 @endpush    
 
 @section('content')
     <section class="py-0 mb-3 mt-3">
-        <div class="container">
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="row gx-5">
-                        <aside class="col-lg-6">
-                            <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="{{asset('asset/product/kebaya-2.png')}}">
-                                    <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{asset('asset/product/kebaya-2.png')}}" />
-                                </a>
-                            </div>
-                            <div class="d-flex justify-content-start mb-3">
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{{asset('asset/product/kebaya-2.png')}}">
-                                    <img width="60" height="60" class="rounded-2" src="{{asset('asset/product/kebaya-2.png')}}" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{{asset('asset/product/kebaya-2.png')}}">
-                                    <img width="60" height="60" class="rounded-2" src="{{asset('asset/product/kebaya-2.png')}}" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{{asset('asset/product/kebaya-2.png')}}">
-                                    <img width="60" height="60" class="rounded-2" src="{{asset('asset/product/kebaya-2.png')}}" />
-                                </a>
-                                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{{asset('asset/product/kebaya-2.png')}}">
-                                    <img width="60" height="60" class="rounded-2" src="{{asset('asset/product/kebaya-2.png')}}" />
-                                </a>
-                            </div>
-                        </aside>
-                        <main class="col-lg-6">
-                            <div class="ps-lg-3 mt-4">
-                                <h4 class="title text-dark">
-                                    Baju Kebaya Wanita Ada Bali (Putih)
-                                </h4>
-                                <div class="d-flex flex-row my-3">
-                                    <div class="text-warning mb-1 me-2">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span class="ms-1">4.5</span>
-                                    </div>
-                                    <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>10 Stock</span>
+        <form action="{{route('users.generateRent')}}" method="POST">
+            @csrf
+            <input type="hidden" name="products_id" id="products_id" value="{{$product->id}}">
+            <div class="container">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>
+                                    {{$error}}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="row gx-5">
+                            @php
+                                $imageExplode = explode('|', $product->image);
+                            @endphp
+                            <aside class="col-lg-6 images">
+                                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                                    <a class="rounded-4" href="{{asset($imageExplode[0])}}">
+                                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{asset($imageExplode[0])}}" />
+                                    </a>
                                 </div>
-                                <div class="mb-3">
-                                    <span class="h5">Rp. 250.000</span>
-                                    <span class="text-muted">/Per Set</span>
+                                <div class="d-flex justify-content-start mb-3">
+                                    @foreach ($imageExplode as $img)
+                                        <a id="images" class="border rounded-2 m-2" href="{{asset($img)}}">
+                                            <img width="80" height="80" class="rounded-2" src="{{asset($img)}}" />
+                                        </a>
+                                    @endforeach
                                 </div>
-                                <p>
-                                    Modern look and quality demo item is a streetwear-inspired collection that continues to break away from the conventions of mainstream fashion. Made in Italy, these black and brown clothing low-top shirts for men.
-                                </p>
-                                <div class="row">
-                                    <dt class="col-3">Type:</dt>
-                                    <dd class="col-9">Per Set</dd>
-                                    <dt class="col-3">Warna:</dt>
-                                    <dd class="col-9">Putih</dd>
-                                    <dt class="col-3">Bahan:</dt>
-                                    <dd class="col-9">Cotton</dd>
-                                    <dt class="col-3">Designer:</dt>
-                                    <dd class="col-9">Jamaludin</dd>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-md-6 col-6">
-                                        <label class="mb-2">Ukuran</label>
-                                        <select class="form-select border border-secondary mt-2" style="height: 35px;">
-                                            <option>- Pilih -</option>
-                                            <option>S</option>
-                                            <option>M</option>
-                                            <option>L</option>
-                                            <option>XL</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 col-6 mb-3">
-                                        <label class="mb-2 d-block">Jumlah</label>
-                                        <div class="input-group mb-3" style="width: 170px;">
-                                            <button class="btn btn-warning px-3 decrease" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <input type="text" class="form-control text-center" value="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                            <button class="btn btn-primary px-3 increase" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                            </aside>
+                            <main class="col-lg-6">
+                                <div class="ps-lg-3 mt-4">
+                                    <h4 class="title text-dark">
+                                        {{$product->nm_produk}} - {{$product->warna}}
+                                    </h4>
+                                    <div class="d-flex flex-row my-3">
+                                        <div class="text-warning mb-1 me-2">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
                                         </div>
+                                        <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>{{$product->stock}} Stock</span>
                                     </div>
+                                    <div class="mb-3">
+                                        <span class="h5">Rp.{{number_format($product->harga, 2)}}</span>
+                                        <span class="text-muted">/{{$product->type}}</span>
+                                    </div>
+                                    <p class="multiline-truncate">
+                                        {{$product->deskripsi_singkat}}
+                                    </p>
+                                    <div class="row">
+                                        <dt class="col-3">Type:</dt>
+                                        <dd class="col-9">{{$product->type}}</dd>
+                                        <dt class="col-3">Warna:</dt>
+                                        <dd class="col-9">{{$product->warna}}</dd>
+                                        <dt class="col-3">Designer:</dt>
+                                        <dd class="col-9">{{$product->designer->name}}</dd>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-6 col-6">
+                                            <label class="mb-2">Ukuran</label>
+                                            <select class="form-select border border-secondary mt-2" name="size" style="height: 35px;">
+                                                <option value="">- Pilih -</option>
+                                                @foreach (explode('|', $product->size) as $sz)
+                                                    <option value="{{$sz}}">{{$sz}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-6">
+                                            <label class="mb-2 d-block">Jumlah</label>
+                                            <div class="input-group mb-3 quantity-container" style="width: 200px;">
+                                                <button class="btn btn-warning px-3 decrease" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <input type="text" name="qty" class="form-control text-center quantity-amount" value="1" min="1"/>
+                                                <button class="btn btn-primary px-3 increase" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        @auth
+                                            <div class="col-md-6 col-6 mb-3">
+                                                <label class="mb-2">Tanggal Mulai Sewa</label>
+                                                <input type="date" name="start_date" class="form-control" style="height: 35px; border: 2px solid #198754; width: 100%" id="start_date">
+                                            </div>
+                                            <div class="col-md-6 col-6 mb-3">
+                                                <label class="mb-2">Tanggal Selesai Sewa</label>
+                                                <input type="date" name="end_date" class="form-control" style="height: 35px; border: 2px solid #198754; width: 100%" id="end_date">
+                                            </div>
+                                        @endauth
+                                    </div>
+                                    @auth
+                                        <hr class="divide">
+                                        <div class="mt-3">
+                                            <a href="{{route('whislist')}}" class="btn btn-outline-primary shadow"><i class="fas fa-heart"></i></a>
+                                            <button type="submit" class="btn btn-primary shadow">Sewa Sekarang</button>
+                                        </div>
+                                    @else
+                                        <a href="{{route('whislist')}}" class="btn btn-primary shadow w-100">Login</a>
+                                    @endauth
                                 </div>
-                                <a href="{{route('whislist')}}" class="btn btn-outline-primary shadow"><i class="fas fa-heart"></i></a>
-                                <a href="{{route('rent')}}" class="btn btn-primary shadow">Sewa Sekarang</a>
-                            </div>
-                        </main>
+                            </main>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </section>
 
     <section class="py-0 mb-3">
@@ -118,31 +151,7 @@
                             </ul>
                             <div class="tab-content" id="ex1-content">
                                 <div class="tab-pane fade show active" style="padding-left: 20px;" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
-                                    <p>
-                                        <b>Detail Kebaya</b>
-                                    </p>
-                                    <ul>
-                                        <li>Bahan: Lace bordir premium,furing Roberto Cavali</li>
-                                        <li>Payet sulam manual</li>
-                                        <li>Panjang baju: 80 cm</li>
-                                        <li>FREE SELENDANG & OBI BELT</li>
-                                    </ul>
-                                    <p>
-                                        <b>Size Kebaya</b>
-                                    </p>
-                                    <ul>
-                                        <li>M: Lingkar dada 100cm (BB 45-49)</li>
-                                        <li>L: Lingkar dada 102cm (BB 50-59)</li>
-                                        <li>XL: Lingkar dada 105cm (BB 60-65)</li>
-                                    </ul>
-                                    <p>
-                                        <b>Detail Rok Batik</b>
-                                    </p>
-                                    <ul>
-                                        <li>Bahan: KATUN PRIMA HALUS</li>
-                                        <li>Terdapat karet di kanan dan kiri belahan terbuka sedikit dibelakang untuk jalan</li>
-                                        <li>Panjang rok : 95-100cm</li>
-                                    </ul>
+                                    {!! $product->deskripsi !!}
                                 </div>
                             </div>
                         </div>
@@ -332,3 +341,18 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.images').magnificPopup({
+                delegate: 'a',
+                type:'image',
+                gallery:{
+                    enabled:true
+                }
+            });
+        });
+    </script>
+@endpush
