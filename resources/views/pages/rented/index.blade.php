@@ -103,7 +103,7 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a class="dropdown-item" target="_blank" href="{{route('rent.generateRentInvoice', ['invoice' => $item->invoice])}}">Invoice Penyewaan</a></li>
                                                     @if ($item->return_product_count > 0)
-                                                        <li><a class="dropdown-item" href="#">Invoice Pengembalian</a></li>
+                                                        <li><a class="dropdown-item" target="_blank" href="{{route('rent.generateReturnInvoice', ['invoice' => $item->return_product->invoice])}}">Invoice Pengembalian</a></li>
                                                     @endif
                                                 </ul>
                                             </div>
@@ -112,7 +112,7 @@
                                             @if ($item->return_product_count > 0)
                                                 <a href="javascript:void(0)" class="btn btn-primary w-100 disabled">Selesai</a>
                                             @else
-                                                <a href="{{route('rented.show')}}" class="btn btn-primary w-100">Return</a>
+                                                <a href="{{route('rented.show', ['invoice' => $item->invoice])}}" class="btn btn-primary w-100">Return</a>
                                             @endif
                                         </div>
                                     </div>

@@ -125,7 +125,7 @@
                                             <button type="submit" class="btn btn-primary shadow">Sewa Sekarang</button>
                                         </div>
                                     @else
-                                        <a href="{{route('whislist')}}" class="btn btn-primary shadow w-100">Login</a>
+                                        <a href="{{route('login')}}" class="btn btn-primary shadow w-100">Login</a>
                                     @endauth
                                 </div>
                             </main>

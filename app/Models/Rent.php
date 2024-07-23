@@ -25,4 +25,9 @@ class Rent extends Model
     {
         return $this->hasOne(Pengembalian::class, 'rents_id', 'id');
     }
+
+    public function denda()
+    {
+        return $this->hasOne(Denda::class, 'rents_id', 'id');
+    }
 }

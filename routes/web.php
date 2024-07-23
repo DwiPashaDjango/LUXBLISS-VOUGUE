@@ -70,7 +70,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('renteds')->group(function () {
         Route::get('/', [RentedController::class, 'index'])->name('rented');
-        Route::get('/renteds/return', [RentedController::class, 'show'])->name('rented.show');
+        Route::get('/renteds/{invoice}/return', [RentedController::class, 'show'])->name('rented.show');
+        Route::post('/return', [RentedController::class, 'returnRents'])->name('rent.returnRents');
         Route::get('/invoice/{invoice}/rents', [RentedController::class, 'generateRentInvoice'])->name('rent.generateRentInvoice');
+        Route::get('/invoice/{invoice}/returns', [RentedController::class, 'generateReturnInvoice'])->name('rent.generateReturnInvoice');
     });
 });

@@ -1,17 +1,69 @@
 @extends('layouts.app')
 
 @section('title')
-    Retun (Pengembalian)
+    Retun (Pengembalian) - {{$rents->invoice}}
 @endsection
 
 @push('css')
    <style>
-
-   </style>
+        .multiline-truncate {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 @endpush        
 
 @section('content')
+<form action="{{route('rent.returnRents')}}" method="POST">
+    @csrf
+    <input type="hidden" name="products_id" id="products_id" value="{{$rents->products_id}}">
+    <input type="hidden" name="rents_id" id="rents_id" value="{{$rents->id}}">
+    @php
+        $now = \Carbon\Carbon::now();
+
+        $endDate = $rents->end_date;
+        if ($now->greaterThan($endDate)) {
+            $denda = 20000;
+        }
+    @endphp
     <div class="container py-5">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $errors)
+                        <li>
+                            {{$errors}}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if ($now->greaterThan($endDate))
+            <div class="alert alert-primary d-flex align-items-center" role="alert" style="background-color: #3b5d50; border: none; color: #fff">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle mr-3" style="margin-right: 20px" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                </svg>
+                @php
+                    $startDate = \Carbon\Carbon::parse($rents->start_date);
+                    $endDate = \Carbon\Carbon::parse($rents->end_date); 
+
+                    $now = \Carbon\Carbon::now();
+                    $daysPassed = 0;
+
+                    if ($now->greaterThan($endDate)) {
+                        $daysPassed = $endDate->diffInDays($startDate);
+                    } else {
+                        $daysPassed = $now->diffInDays($startDate);
+                    }
+                @endphp     
+                <div>
+                    <b>Rp. Anda Terlambat Mengembalikan Produk Yang Di Sewa Selama {{$daysPassed}} Hari Maka Anda Di Kenakan Denda Rp. 20.000</b>
+                </div>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black"> <i class="fas fa-map-marker-alt" style="color: #198754;"></i> Alamat Pengiriman</h2>
@@ -20,11 +72,12 @@
                         <a href="javascript:void(0)" class="btn btn-primary btn-sm mb-3" style="border-radius: 30px"><i class="fas fa-pencil" style="font-size: 12px"></i></a>
                         <div style="border: 2px dashed #198754; border-radius: 5px; padding: 10px; height: 23vh;">
                             <p style="word-break: break-all">
-                                Raden Muhamad Rama Poetra Ardinigrat
+                                {{$rents->user->name}}
                                 <br>
-                                0874562023856325
+                                {{$rents->user->telp}}
                                 <br>
                                 <br>
+                                {{$rents->user->alamat}}
                             </p>
                         </div>
                     </div>
@@ -38,14 +91,14 @@
                                 <td style="padding-bottom: 20px">Pesan</td>
                                 <td style="padding-bottom: 20px"></td>
                                 <td style="padding-bottom: 20px">
-                                    <input type="text" name="" id="" class="form-control" placeholder="(Optional) Tinggal Pesan Ke Toko" style="height: 35%; border: 2px solid #198754">
+                                    <input type="text" name="catatan" id="catatan" class="form-control" placeholder="(Optional) Tinggal Pesan Ke Toko" style="height: 35%; border: 2px solid #198754">
                                 </td>
                             </tr>
                             <tr> 
                                 <td>Opsi Pengiriman</td>
                                 <td></td>
                                 <td>
-                                    <select name="" id="" class="form-control" style="height: 35%; border: 2px solid #198754">
+                                    <select name="jasa_kirim" id="jasa_kirim" class="form-control" style="height: 35%; border: 2px solid #198754">
                                         <option value="">- Pilih -</option>
                                         @php
                                             $pengiriman = [
@@ -64,110 +117,115 @@
                                             ];
                                         @endphp 
                                         @foreach ($pengiriman as $pn)
-                                            <option value="{{$pn['name']}}">{{$pn['name']}} - {{number_format($pn['price'], 2)}}</option>
+                                            <option value="{{$pn['name']}}" {{$pn['name'] === $rents->jasa_kirim ? 'selected' : ''}}>{{$pn['name']}}</option>
                                         @endforeach
                                     </select>
                                 </td>
                             </tr>
-                            <tr> 
-                                <td style="padding-top:20px;">Metode Pembayaran</td>
-                                <td style="padding-top:20px;"></td>
-                                <td style="padding-top:20px;">
-                                    <div class="border p-3 mb-3">
-                                        <h3 class="h6 mb-0">
-                                            <a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">
-                                                E-Wallet
-                                            </a>
-                                        </h3>
-    
-                                        <div class="collapse" id="collapsecheque">
-                                            <div class="py-2">
-                                                @php
-                                                    $ewallet = [
-                                                        [
-                                                            "name" => "Dana",
-                                                            "image" => asset('asset/wallet/dana.png')
-                                                        ],
-                                                        [
-                                                            "name" => "Ovo",
-                                                            "image" => asset('asset/wallet/ovo.png')
-                                                        ],
-                                                        [
-                                                            "name" => "Sea Bank",
-                                                            "image" => asset('asset/wallet/seabank.png')
-                                                        ],
-                                                        [
-                                                            "name" => "Shoppepay",
-                                                            "image" => asset('asset/wallet/spay.png')
-                                                        ],
-                                                    ];
-                                                @endphp
-                                                @foreach ($ewallet as $index => $wl)
-                                                    <div class="d-flex align-items-center justify-content-between p-3 customRounded">
-                                                        <div class="d-flex align-items-center">
-                                                            <input type="radio" name="paymentMethood" id="customAmount-{{$index}}">
-                                                            <label for="customAmount-{{$index}}" class="ms-3">
-                                                                <strong>{{$wl['name']}}</strong><br />
-                                                            </label>
-                                                        </div>
-                                                        <div>
-                                                            <img src="{{$wl['image']}}" alt="Amex Logo" height="28">
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="border p-3 mb-3">
-                                        <h3 class="h6 mb-0">
-                                            <a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">
-                                                Transfer Bank
-                                            </a>
-                                        </h3>
-
-                                        <div class="collapse" id="collapsebank">
-                                            <div class="py-2">
-                                                <div class="border customRounded">
+                            @if ($now->greaterThan($endDate))
+                                <tr> 
+                                    <td style="padding-top:20px;">Metode Pembayaran</td>
+                                    <td style="padding-top:20px;"></td>
+                                    <td style="padding-top:20px;">
+                                        <div class="border p-3 mb-3">
+                                            <h3 class="h6 mb-0">
+                                                <a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">
+                                                    E-Wallet
+                                                </a>
+                                            </h3>
+        
+                                            <div class="collapse" id="collapsecheque">
+                                                <div class="py-2">
                                                     @php
-                                                        $transfer = [
+                                                        $ewallet = [
                                                             [
-                                                                "name" => "BCA",
-                                                                "image" => asset('asset/bank/bca.png')
+                                                                "name" => "Dana",
+                                                                "image" => asset('asset/wallet/dana.png')
                                                             ],
                                                             [
-                                                                "name" => "Mandiri",
-                                                                "image" => asset('asset/bank/mandiri.png')
+                                                                "name" => "Ovo",
+                                                                "image" => asset('asset/wallet/ovo.png')
                                                             ],
                                                             [
-                                                                "name" => "BNI",
-                                                                "image" => asset('asset/bank/bni.png')
+                                                                "name" => "Sea Bank",
+                                                                "image" => asset('asset/wallet/seabank.png')
                                                             ],
                                                             [
-                                                                "name" => "BRI",
-                                                                "image" => asset('asset/bank/bri.png')
+                                                                "name" => "Shoppepay",
+                                                                "image" => asset('asset/wallet/spay.png')
                                                             ],
                                                         ];
                                                     @endphp
-                                                    @foreach ($transfer as $index => $tf)
+                                                    @foreach ($ewallet as $index => $wl)
                                                         <div class="d-flex align-items-center justify-content-between p-3 customRounded">
                                                             <div class="d-flex align-items-center">
-                                                                <input type="radio" name="paymentMethood" id="customAmount-{{$index}}">
+                                                                <input type="radio" value="{{$wl['name']}}" name="pembayaran" id="customAmount-{{$index}}">
                                                                 <label for="customAmount-{{$index}}" class="ms-3">
-                                                                    <strong>Bank {{$tf['name']}}</strong><br />
+                                                                    <strong>{{$wl['name']}}</strong><br />
                                                                 </label>
                                                             </div>
                                                             <div>
-                                                                <img src="{{$tf['image']}}" alt="Amex Logo" height="28">
+                                                                <img src="{{$wl['image']}}" alt="Amex Logo" height="28">
                                                             </div>
                                                         </div>
                                                     @endforeach
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+
+                                        <div class="border p-3 mb-3">
+                                            <h3 class="h6 mb-0">
+                                                <a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">
+                                                    Transfer Bank
+                                                </a>
+                                            </h3>
+
+                                            <div class="collapse" id="collapsebank">
+                                                <div class="py-2">
+                                                    <div class="border customRounded">
+                                                        @php
+                                                            $transfer = [
+                                                                [
+                                                                    "name" => "BCA",
+                                                                    "image" => asset('asset/bank/bca.png')
+                                                                ],
+                                                                [
+                                                                    "name" => "Mandiri",
+                                                                    "image" => asset('asset/bank/mandiri.png')
+                                                                ],
+                                                                [
+                                                                    "name" => "BNI",
+                                                                    "image" => asset('asset/bank/bni.png')
+                                                                ],
+                                                                [
+                                                                    "name" => "BRI",
+                                                                    "image" => asset('asset/bank/bri.png')
+                                                                ],
+                                                            ];
+                                                        @endphp
+                                                        @foreach ($transfer as $index => $tf)
+                                                            <div class="d-flex align-items-center justify-content-between p-3 customRounded">
+                                                                <div class="d-flex align-items-center">
+                                                                    <input type="radio" value="{{$wl['name']}}" name="pembayaran" id="customAmount-{{$index}}">
+                                                                    <label for="customAmount-{{$index}}" class="ms-3">
+                                                                        <strong>Bank {{$tf['name']}}</strong><br />
+                                                                    </label>
+                                                                </div>
+                                                                <div>
+                                                                    <img src="{{$tf['image']}}" alt="Amex Logo" height="28">
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <input type="hidden" name="status" id="status" value="denda">
+                            @else
+                                <input type="hidden" name="status" id="status" value="not_denda">
+                            @endif
                         </table>
                     </div>
                 </div>
@@ -181,16 +239,19 @@
                                 <div class="row gx-5">
                                     <aside class="col-lg-4">
                                         <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                            <img style="max-width: 100%; height: 16vh; margin: auto;" class="rounded-4 fit" src="{{asset('asset/product/kebaya-2.png')}}" />
+                                            @php
+                                                $image = explode('|', $rents->product->image);
+                                            @endphp
+                                            <img style="max-width: 100%; height: 16vh; margin: auto;" class="rounded-4 fit" src="{{asset($image[0])}}" />
                                         </div>
                                     </aside>
                                     <main class="col-lg-8">
                                         <div class="ps-lg">
                                             <h4 class="title text-dark">
-                                                Baju Kebaya Wanita Ada Bali (Putih)
+                                                {{$rents->product->nm_produk}} - {{$rents->product->warna}}
                                             </h4>
-                                            <p>
-                                                Modern look and quality demo item is a streetwear-inspired streetwear-inspired st
+                                            <p class="multiline-truncate">
+                                                {{$rents->product->deskripsi_singkat}}
                                             </p>
                                         </div>
                                     </main>
@@ -198,14 +259,16 @@
                                         <div class="ps-lg">
                                             <table class="table table-bordered text-center">
                                                 <tr>
+                                                    <th>Ukuran</th>
                                                     <th>Harga</th>
                                                     <th>Jumlah</th>
                                                     <th>Subtotal</th>
                                                 </tr>
                                                 <tr>
-                                                    <td>Rp. 240.000</td>
-                                                    <td>2</td>
-                                                    <td>Rp. 450.000</td>
+                                                    <td>{{$rents->size}}</td>
+                                                    <td>{{number_format($rents->product->harga)}}</td>
+                                                    <td>{{$rents->qty}}</td>
+                                                    <td>{{number_format($rents->qty * $rents->product->harga)}}</td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -222,22 +285,42 @@
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Subtotal Produk</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 480.000</td>
+                                        <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($rents->product->harga * $rents->qty)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Ongkos Kirim</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 10.000</td>
+                                         @php
+                                            if ($rents->jasa_kirim === "JNE") {
+                                                $ongkir = 20000;
+                                            } elseif($rents->jasa_kirim === "J&T") {
+                                                $ongkir = 15000;
+                                            } else {
+                                                $ongkir = 10000;
+                                            }
+                                        @endphp
+                                        <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($ongkir)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Durasi Penyewaan</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 10.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 30%; padding-bottom: 8px">Biaya Layanan</td>
-                                        <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 10.000</td>
+                                        @php
+                                            $startDate = \Carbon\Carbon::parse($rents->start_date);
+                                            $endDate = \Carbon\Carbon::parse($rents->end_date);
+
+                                            $numberOfDay = $startDate->diffInDays($endDate);
+
+                                            if($numberOfDay == 1) {
+                                                $priceSewa = 150000;
+                                            } elseif($numberOfDay >= 2) {
+                                                $priceSewa = 250000;
+                                            } elseif($numberOfDay >= 3) {
+                                                $priceSewa = 350000;
+                                            } else {
+                                                $priceSewa = 400000;
+                                            }
+                                        @endphp
+                                        <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($priceSewa)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">
@@ -245,7 +328,7 @@
                                         </td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
                                         <td style="width: 30%; padding-bottom: 8px">
-                                            <h6>Rp. 741.000</h6>
+                                            <h6>Rp. {{number_format($rents->product->harga * $rents->qty + $priceSewa + $ongkir)}}</h6>
                                         </td>
                                     </tr>
                                 </table>
@@ -260,7 +343,11 @@
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Denda</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        <td style="width: 30%; padding-bottom: 8px">Rp. 0</td>
+                                        @if ($now->greaterThan($endDate))
+                                            <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($denda)}}</td>
+                                        @else
+                                            <td style="width: 30%; padding-bottom: 8px">Rp. 0</td>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">
@@ -268,13 +355,18 @@
                                         </td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
                                         <td style="width: 30%; padding-bottom: 8px">
-                                            <h6>Rp. 0</h6>
+                                            @if ($now->greaterThan($endDate))
+                                                <input type="hidden" name="total_denda" id="total_denda" value="{{$denda}}">
+                                                <h6>Rp. {{number_format($denda)}}</h6>
+                                            @else
+                                                <h6>Rp. 0</h6>
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px" colspan="3">
                                             <hr class="divide">
-                                            <a href="{{route('alert.rent', ['title' => 'Terima Kasih !', 'message' => 'Produk berhasil dikembalikan'])}}" class="btn btn-primary w-100">Return Product</a>
+                                            <button type="submit" class="btn btn-primary w-100">Return Product</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -285,4 +377,5 @@
             </div>
         </div>
     </div>
+</form>
 @endsection
