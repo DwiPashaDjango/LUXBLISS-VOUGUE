@@ -28,6 +28,12 @@ php artisan optimize:clear
 ```php
 php artisan key:generate
 ```
+```php
+php artisan migrate
+```
+```php
+php artisan db:seed
+```
 
 Setelah itu tinggal jalankan server aplikasi dengan cara mengetikan code dibawah ini
 ``` php
