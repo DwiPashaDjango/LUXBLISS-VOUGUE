@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('invoice');
             $table->foreignId('users_id');
             $table->foreignId('products_id');
+            $table->integer('rents_index')->nullable();
+            $table->string('size')->nullable();
             $table->integer('qty')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

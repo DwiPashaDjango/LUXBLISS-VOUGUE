@@ -23,9 +23,18 @@
     @php
         $now = \Carbon\Carbon::now();
 
+        $startDate = \Carbon\Carbon::parse($rents->start_date);
+        $endDates = \Carbon\Carbon::parse($rents->end_date);
+
+        $numberOfDay = $startDate->diffInDays($endDates);
+
+        $jumlahHari = $numberOfDay + 1;
+
         $endDate = $rents->end_date;
+
+        $denda = 0;
         if ($now->greaterThan($endDate)) {
-            $denda = 20000;
+            $denda = 20000 * $jumlahHari;
         }
     @endphp
     <div class="container py-5">
@@ -310,15 +319,7 @@
 
                                             $numberOfDay = $startDate->diffInDays($endDate);
 
-                                            if($numberOfDay == 1) {
-                                                $priceSewa = 150000;
-                                            } elseif($numberOfDay >= 2) {
-                                                $priceSewa = 250000;
-                                            } elseif($numberOfDay >= 3) {
-                                                $priceSewa = 350000;
-                                            } else {
-                                                $priceSewa = 400000;
-                                            }
+                                            $priceSewa = $numberOfDay * $rents->product->harga_next;
                                         @endphp
                                         <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($priceSewa)}}</td>
                                     </tr>

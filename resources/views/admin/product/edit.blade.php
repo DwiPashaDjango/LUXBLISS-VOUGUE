@@ -93,7 +93,7 @@
                             <input type="text" name="brand" id="brand" class="form-control" value="{{$product->brand}}">
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label for="" class="mb-2">Stock</label>
                             <input type="number" name="stock" id="stock" class="form-control" value="{{$product->stock}}">
@@ -102,7 +102,13 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="" class="mb-2">Harga</label>
-                            <input type="text" name="harga" id="harga" class="form-control" value="{{number_format($product->harga, 2)}}">
+                            <input type="text" name="harga" id="harga" class="form-control" value="{{$product->harga}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="" class="mb-2">Harga Untuk Lebih Dari 1 Hari</label>
+                            <input type="text" name="harga_next" id="harga_next" class="form-control" value="{{$product->harga_next}}"> 
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -166,6 +172,11 @@
         $("#harga").on('input', function(e) {
             var idr = $(this).val();
             $('#harga').val(formatIDR(idr))
+        })
+
+        $("#harga_next").on('input', function(e) {
+            var idr = $(this).val();
+            $('#harga_next').val(formatIDR(idr))
         })
 
         var fileList = [];

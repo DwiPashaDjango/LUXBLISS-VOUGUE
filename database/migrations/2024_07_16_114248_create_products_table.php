@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('brand')->nullable();
             $table->integer('stock');
             $table->double('harga');
+            $table->double('harga_next');
             $table->text('deskripsi_singkat');
             $table->longText('deskripsi');
             $table->string('image');

@@ -13,9 +13,19 @@
             overflow: hidden;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 @endpush        
 
 @section('content')
+@php
+    $startDate = \Carbon\Carbon::parse($rents->start_date);
+    $endDate = \Carbon\Carbon::parse($rents->end_date);
+
+    $numberOfDay = $startDate->diffInDays($endDate);
+
+
+    $priceSewa = $numberOfDay * $rents->product->harga_next;
+@endphp
 <form action="{{route('users.updatePaidRent', ['invoice' => $rents->invoice])}}" method="POST">
     @csrf
     @method("PUT")
@@ -36,7 +46,7 @@
                 <h2 class="h3 mb-3 text-black"> <i class="fas fa-map-marker-alt" style="color: #198754;"></i> Alamat Pengiriman</h2>
                 <div class="card rounded mb-5">
                     <div class="card-body">
-                        <a href="javascript:void(0)" class="btn btn-primary btn-sm mb-3" style="border-radius: 30px"><i class="fas fa-pencil" style="font-size: 12px"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm mb-3 update" style="border-radius: 30px"><i class="fas fa-pencil" style="font-size: 12px"></i></a>
                         <div style="border: 2px dashed #198754; border-radius: 5px; padding: 10px; height: 23vh;">
                             <p style="word-break: break-all">
                                 {{$rents->user->name}}
@@ -54,6 +64,13 @@
                 <div class="card rounded mb-5">
                     <div class="card-body">
                         <table style="width: 100%">
+                            <tr>
+                                <td style="padding-bottom: 20px">Jumlah Hari Penyewaan</td>
+                                <td style="padding-bottom: 20px"></td>
+                                <td style="padding-bottom: 20px">
+                                    <input type="text" name="" id="" class="form-control" value="{{$numberOfDay + 1}} Hari" style="height: 35%; border: 2px solid #198754" disabled> 
+                                </td>
+                            </tr>
                             <tr>
                                 <td style="padding-bottom: 20px">Pesan</td>
                                 <td style="padding-bottom: 20px"></td>
@@ -258,22 +275,6 @@
                                         <td style="width: 30%; padding-bottom: 8px" id="jasa_kirim_append"></td>
                                     </tr>
                                     <tr>
-                                        @php
-                                            $startDate = \Carbon\Carbon::parse($rents->start_date);
-                                            $endDate = \Carbon\Carbon::parse($rents->end_date);
-
-                                            $numberOfDay = $startDate->diffInDays($endDate);
-
-                                            if($numberOfDay == 1) {
-                                                $priceSewa = 150000;
-                                            } elseif($numberOfDay >= 2) {
-                                                $priceSewa = 250000;
-                                            } elseif($numberOfDay >= 3) {
-                                                $priceSewa = 350000;
-                                            } else {
-                                                $priceSewa = 400000;
-                                            }
-                                        @endphp
                                         <td style="width: 30%; padding-bottom: 8px">Durasi Penyewaan</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
                                         <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($priceSewa)}}</td>
@@ -309,7 +310,41 @@
 </form>
 @endsection
 
+@push('modal')
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileModalLabel">Update Alamat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST">
+            @csrf
+            @method("PUT")
+            <div class="form-group mb-3">
+                <label for="">No Telephone</label>
+                <input type="text" name="telp" id="telp" class="form-control" value="{{Auth::user()->telp}}" style="border: 2px solid #198754; border-radius: 5px; padding: 10px;">
+            </div>
+            <div class="form-group mb-3">
+                <label for="">Alamat</label>
+                <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control" style="border: 2px solid #198754; border-radius: 5px; padding: 10px; height: 23vh;">
+                    {{Auth::user()->alamat}}
+                </textarea>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" id="save">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endpush
+
 @push('js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         const pengiriman = [
             { name: "JNE", price: 20000 },
@@ -343,5 +378,48 @@
             grandTotals.textContent = "Rp. " + totalWithShipping.toLocaleString();
             totals.value = totalWithShipping;
         });
+
+        $(document).ready(function() {
+            $(".update").click(function() {
+                $("#profileModal").modal('show');
+            })
+
+            $("#save").click(function(e) {
+                e.preventDefault();
+                let telp = $("#telp").val();
+                let alamat = $("#alamat").val();
+
+                $.ajax({
+                    url: "{{url('/update-account/' . Auth::user()->id)}}",
+                    method: "PUT",
+                    data: {
+                        telp: telp,
+                        alamat: alamat
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        Toastify({
+                            text: data.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "#729D88",
+                            },
+                            onClick: function(){} // Callback after click
+                        }).showToast();
+                        $("#profileModal").modal('hide');
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 3000);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                })
+            })
+        })
     </script>
-    @endpush
+@endpush

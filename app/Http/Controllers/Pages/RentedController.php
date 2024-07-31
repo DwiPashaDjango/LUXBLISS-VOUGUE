@@ -8,6 +8,7 @@ use App\Models\Pengembalian;
 use App\Models\Rent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
 class RentedController extends Controller
@@ -83,6 +84,19 @@ class RentedController extends Controller
         }
 
         return redirect()->route('alert.rent', ['title' => 'Success', 'message' => 'Berhasil Melakukan Pengembalian Produk']);
+    }
+
+    public function canceled($id)
+    {
+        $rents = Rent::where('id', $id)->first();
+
+        if (!$rents) {
+            return Response::json(['status' => 404, 'message' => 'Rents Not Found.']);
+        }
+
+        $rents->delete();
+
+        return Response::json(['status' => 200, 'message' => 'Berhasil membatalkan penyewaan.']);
     }
 
     public function generateRentInvoice($invoice)

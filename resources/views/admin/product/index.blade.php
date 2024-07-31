@@ -13,6 +13,7 @@
             overflow: hidden;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 @endpush    
 
 @section('content')
@@ -88,7 +89,7 @@
                         </div>
                         <div class="d-flex flex-column mt-4">
                             <a class="btn btn-warning btn-sm" href="{{route('admin.product.edit', ['id' => $item->id])}}">Edit</a>
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mt-2" type="button">
+                            <button onclick="return deleteProduk('{{$item->id}}')" class="btn btn-danger btn-sm mt-2" type="button">
                                 Delete
                             </button>
                         </div>
@@ -98,6 +99,66 @@
         </div>
         <hr class="divide">
     @empty
-        
+        <center>
+            <img src="{{asset('no-data.png')}}" style="width: 50%" alt="">
+        </center>
     @endforelse
 @endsection
+
+@push('js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="{{asset('admin')}}/modules/sweetalert/sweetalert.min.js"></script>
+    <script src="{{asset('admin')}}/js/page/modules-sweetalert.js"></script>
+    <script>
+        function deleteProduk(id) {
+            swal({
+                title: 'Warning !',
+                text: 'Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "{{url('admins/products/destroy')}}/" + id,
+                        method: 'DELETE',
+                        dataType: 'json',
+                        success: function(data) {
+                            Toastify({
+                                text: "Berhasil Menghapus Data.",
+                                duration: 3000,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "#729D88",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            Toastify({
+                                text: "Server Error.",
+                                duration: 3000,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "#FD6161",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+@endpush

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Desginer;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class ProductController extends Controller
 {
@@ -53,6 +54,7 @@ class ProductController extends Controller
             'brand' => 'required',
             'stock' => 'required',
             'harga' => 'required',
+            'harga_next' => 'required',
             'deskripsi_singkat' => 'required',
             'deskripsi' => 'required',
             'image' => 'required|array',
@@ -62,6 +64,7 @@ class ProductController extends Controller
         $post = $request->all();
 
         $price = str_replace('.', '', $request->harga);
+        $price_next = str_replace('.', '', $request->harga_next);
         $size = implode('|', $request->size);
 
         $imagePath = [];
@@ -75,6 +78,7 @@ class ProductController extends Controller
         $imageString = implode('|', $imagePath);
 
         $post['harga'] = $price;
+        $post['harga_next'] = $price_next;
         $post['size'] = $size;
         $post['image'] = $imageString;
 
@@ -106,6 +110,7 @@ class ProductController extends Controller
             'brand' => 'required',
             'stock' => 'required',
             'harga' => 'required',
+            'harga_next' => 'required',
             'deskripsi_singkat' => 'required',
             'deskripsi' => 'required',
             'image' => 'array',
@@ -116,7 +121,8 @@ class ProductController extends Controller
 
         $put = $request->all();
 
-        $price = str_replace(',', '', $request->harga);
+        $price = str_replace('.', '', $request->harga);
+        $price_next = str_replace('.', '', $request->harga_next);
         $size = implode('|', $request->size);
 
         if ($request->hasFile('image')) {
@@ -133,6 +139,7 @@ class ProductController extends Controller
         }
 
         $put['harga'] = $price;
+        $put['harga_next'] = $price_next;
         $put['size'] = $size;
 
         $data->update($put);
@@ -144,6 +151,13 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+
+        if (!$product) {
+            return Response::json(['status' => 404, 'message' => 'Produk Not Found.']);
+        }
+
+        $product->delete();
+        return Response::json(['status' => 200, 'message' => 'Berhasil menghapus produk.']);
     }
 }

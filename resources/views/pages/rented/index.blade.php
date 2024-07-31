@@ -45,7 +45,14 @@
                                         <span>{{\Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y')}}</span>
                                     </div>
                                     <hr class="divide">
-                                    <a href="{{route('rent', ['invoice' => $item->invoice])}}" class="btn btn-primary w-100">Bayar Sekarang</a>
+                                    <div class="d-flex justify-content-between p-price">
+                                        <div>
+                                            <a href="javascript:void(0)" onclick="return canceledRent('{{$item->id}}')" class="btn btn-danger w-100">Batalkan Sewa</a>
+                                        </div>
+                                        <div>
+                                            <a href="{{route('rent', ['invoice' => $item->invoice])}}" class="btn btn-primary w-100">Bayar Sekarang</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -84,11 +91,18 @@
                                         @php
                                             $now = \Carbon\Carbon::now();
 
+                                            $startDate = \Carbon\Carbon::parse($item->start_date);
+                                            $endDates = \Carbon\Carbon::parse($item->end_date);
+
+                                            $numberOfDay = $startDate->diffInDays($endDates);
+
+                                            $jumlahHari = $numberOfDay + 1;
+
                                             $endDate = $item->end_date;
 
                                             $denda = 0;
                                             if ($now->greaterThan($endDate)) {
-                                                $denda = 20000;
+                                                $denda = 20000 * $jumlahHari;
                                             }
                                         @endphp
                                         <span>Rp. {{number_format($denda)}}</span>
@@ -125,3 +139,57 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function canceledRent(id) {
+            Swal.fire({
+                title: "Warning !",
+                text: "Anda yakin ingin membatalkan penyewaan ini?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Tidak",
+                confirmButtonText: "Ya",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{url('renteds/canceled')}}/" + id,
+                        method: "DELETE",
+                        success: function(data) {
+                            let timerInterval;
+                            Swal.fire({
+                                icon: "success",
+                                title: "Barhasil...",
+                                html: "Merefresh page dalam <b></b> milliseconds.",
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                    timer.textContent = `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                    window.location.reload();
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    window.location.reload();
+                                }
+                            });
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+@endpush

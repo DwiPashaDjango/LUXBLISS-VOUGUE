@@ -169,15 +169,7 @@
 
                                     $numberOfDay = $startDate->diffInDays($endDate);
 
-                                    if($numberOfDay == 1) {
-                                        $priceSewa = 150000;
-                                    } elseif($numberOfDay >= 2) {
-                                        $priceSewa = 250000;
-                                    } elseif($numberOfDay >= 3) {
-                                        $priceSewa = 350000;
-                                    } else {
-                                        $priceSewa = 400000;
-                                    }
+                                    $priceSewa = $numberOfDay * $rents->product->harga_next;
                                 @endphp
                                 <p><b>Durasi Penyewaan</b> : Rp. {{number_format($priceSewa)}}</p>
                                 <p><b>Total Pembayaran</b> : Rp. {{number_format($rents->product->harga * $rents->qty + $ongkir + $priceSewa)}} </p>
