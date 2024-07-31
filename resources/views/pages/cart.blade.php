@@ -201,7 +201,8 @@
                     dataType: "json",
                     success: function(data) {
                         let html = '';
-                        if (data.length > 0) {
+                        console.log(data);
+                        if (data.data.length > 0) {
                             $.each(data.data, function(index, value) {
                                 if (value.qty > 1) {
                                     html += `<tr>
