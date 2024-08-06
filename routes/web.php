@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DesignerController;
 use App\Http\Controllers\Admin\ListRentedController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Auth\ForgotPassword;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -53,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('admins')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['role:Admin']);
+        Route::post('/statistikRent', [DashboardController::class, 'statistikRent'])->name('dashboard.statistikRent')->middleware(['role:Admin']);
 
         Route::prefix('designers')->group(function () {
             Route::get('/', [DesignerController::class, 'index'])->name('designer');
@@ -81,6 +83,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('renteds')->group(function () {
             Route::get('/', [ListRentedController::class, 'index'])->name('admin.rented');
             Route::get('/{invoice}/details', [ListRentedController::class, 'show'])->name('admin.rented.show');
+        });
+
+        Route::prefix('reports')->group(function () {
+            Route::get('/', [ReportController::class, 'index'])->name('admin.report');
+            Route::get('/renteds', [ReportController::class, 'rented'])->name('admin.report.rented');
+            Route::get('/{month}/{years}/printReportRent', [ReportController::class, 'printReportRent'])->name('admin.report.printReportRent');
+            Route::get('/{month}/{years}/printReportRented', [ReportController::class, 'printReportRented'])->name('admin.report.printReportRented');
         });
     });
 

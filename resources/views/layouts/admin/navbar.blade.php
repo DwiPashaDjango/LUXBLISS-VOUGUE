@@ -14,7 +14,10 @@
                 <a href="{{route('admin.order')}}" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Data Penyewaan</span></a>
             </li>
             <li class="nav-item {{Request::routeIs('admin.rented*') ? 'active' : ''}}">
-                <a href="{{route('admin.rented')}}" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Data Penyewaan</span></a>
+                <a href="{{route('admin.rented')}}" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Data Pengembalian</span></a>
+            </li>
+            <li class="nav-item {{Request::routeIs('admin.report*') ? 'active' : ''}}">
+                <a href="{{route('admin.report')}}" class="nav-link"><i class="fas fa-file"></i><span>Laporan Bulanan</span></a>
             </li>
         </ul>
     </div>
