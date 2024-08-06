@@ -61,6 +61,9 @@
             box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
         }
 
+        @page {
+            size: landscape;
+        }
     </style>
   </head>
   <body onload="window.print()">

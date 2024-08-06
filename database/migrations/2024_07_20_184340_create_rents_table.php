@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('pembayaran')->nullable();
             $table->string('catatan')->nullable();
             $table->double('total')->nullable();
-            $table->enum('status', ['pending', 'paid'])->default('pending');
+            $table->enum('status', ['pending', 'paid', 'sent'])->default('pending');
             $table->timestamps();
         });
     }

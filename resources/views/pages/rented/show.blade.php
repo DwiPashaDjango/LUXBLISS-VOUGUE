@@ -26,9 +26,9 @@
         $startDate = \Carbon\Carbon::parse($rents->start_date);
         $endDates = \Carbon\Carbon::parse($rents->end_date);
 
-        $numberOfDay = $startDate->diffInDays($endDates);
+        $numberOfDay = $now->diffInDays($endDates);
 
-        $jumlahHari = $numberOfDay + 1;
+        $jumlahHari = $numberOfDay;
 
         $endDate = $rents->end_date;
 
@@ -49,27 +49,14 @@
                 </ul>
             </div>
         @endif
-        @if ($now->greaterThan($endDate))
+        @if ($jumlahHari > 0)
             <div class="alert alert-primary d-flex align-items-center" role="alert" style="background-color: #3b5d50; border: none; color: #fff">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle mr-3" style="margin-right: 20px" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                 </svg>
-                @php
-                    $startDate = \Carbon\Carbon::parse($rents->start_date);
-                    $endDate = \Carbon\Carbon::parse($rents->end_date); 
-
-                    $now = \Carbon\Carbon::now();
-                    $daysPassed = 0;
-
-                    if ($now->greaterThan($endDate)) {
-                        $daysPassed = $endDate->diffInDays($startDate);
-                    } else {
-                        $daysPassed = $now->diffInDays($startDate);
-                    }
-                @endphp     
                 <div>
-                    <b>Rp. Anda Terlambat Mengembalikan Produk Yang Di Sewa Selama {{$daysPassed}} Hari Maka Anda Di Kenakan Denda Rp. 20.000</b>
+                    <b>Rp. Anda Terlambat Mengembalikan Produk Yang Di Sewa Selama {{$jumlahHari}} Hari Maka Anda Di Kenakan Denda Sebesar Rp. {{number_format($denda)}}</b>
                 </div>
             </div>
         @endif
@@ -131,7 +118,7 @@
                                     </select>
                                 </td>
                             </tr>
-                            @if ($now->greaterThan($endDate))
+                            @if ($jumlahHari > 0)
                                 <tr> 
                                     <td style="padding-top:20px;">Metode Pembayaran</td>
                                     <td style="padding-top:20px;"></td>

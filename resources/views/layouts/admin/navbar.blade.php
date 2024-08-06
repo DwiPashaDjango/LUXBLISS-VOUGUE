@@ -10,6 +10,12 @@
             <li class="nav-item {{Request::routeIs('admin.product*') ? 'active' : ''}}">
                 <a href="{{route('admin.product')}}" class="nav-link"><i class="fas fa-tshirt"></i><span>Data Produk</span></a>
             </li>
+            <li class="nav-item {{Request::routeIs('admin.order*') ? 'active' : ''}}">
+                <a href="{{route('admin.order')}}" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Data Penyewaan</span></a>
+            </li>
+            <li class="nav-item {{Request::routeIs('admin.rented*') ? 'active' : ''}}">
+                <a href="{{route('admin.rented')}}" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Data Penyewaan</span></a>
+            </li>
         </ul>
     </div>
 </nav>

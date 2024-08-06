@@ -86,27 +86,34 @@
                                         <span>Tanggal Selesai Sewa</span>
                                         <span>{{\Carbon\Carbon::parse($item->end_date)->translatedFormat('d F Y')}}</span>
                                     </div>
-                                    <div class="d-flex justify-content-between p-price">
-                                        <span>Denda</span>
-                                        @php
-                                            $now = \Carbon\Carbon::now();
+                                    @php
+                                        $now = \Carbon\Carbon::now();
 
-                                            $startDate = \Carbon\Carbon::parse($item->start_date);
-                                            $endDates = \Carbon\Carbon::parse($item->end_date);
+                                        $startDate = \Carbon\Carbon::parse($item->start_date);
+                                        $endDates = \Carbon\Carbon::parse($item->end_date);
 
-                                            $numberOfDay = $startDate->diffInDays($endDates);
+                                        $numberOfDay = $now->diffInDays($endDates);
 
-                                            $jumlahHari = $numberOfDay + 1;
+                                        $jumlahHari = $numberOfDay;
 
-                                            $endDate = $item->end_date;
+                                        $endDate = $item->end_date;
 
-                                            $denda = 0;
-                                            if ($now->greaterThan($endDate)) {
-                                                $denda = 20000 * $jumlahHari;
-                                            }
-                                        @endphp
-                                        <span>Rp. {{number_format($denda)}}</span>
-                                    </div>
+                                        $denda = 0;
+                                        if ($now->greaterThan($endDate)) {
+                                            $denda = 20000 * $jumlahHari;
+                                        }
+                                    @endphp
+                                    @if ($jumlahHari > 0)
+                                        <hr class="divide">
+                                        <div class="d-flex justify-content-between p-price">
+                                            <span>Jumlah Hari Terlewat</span>
+                                            <span>{{$jumlahHari}} Hari</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between p-price">
+                                            <span>Denda</span>
+                                            <span>Rp. {{number_format($denda)}}</span>
+                                        </div>
+                                    @endif
                                     <hr class="divide">
                                     <div class="d-flex justify-content-between p-price">
                                         <div>

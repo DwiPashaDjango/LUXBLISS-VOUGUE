@@ -25,4 +25,9 @@ class Pengembalian extends Model
     {
         return $this->hasOne(Denda::class, 'pengembalians_id', 'id');
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'products_id', 'id');
+    }
 }

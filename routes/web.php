@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DesignerController;
+use App\Http\Controllers\Admin\ListRentedController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Auth\ForgotPassword;
 use App\Http\Controllers\Auth\LoginController;
@@ -67,6 +69,18 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/{id}/edit', [AdminProductController::class, 'edit'])->name('admin.product.edit');
             Route::put('/{id}/update', [AdminProductController::class, 'update'])->name('admin.product.update');
             Route::delete('/destroy/{id}', [AdminProductController::class, 'destroy'])->name('admin.product.destroy');
+        });
+
+        Route::prefix('orders')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('admin.order');
+            Route::get('/{invoice}/details', [OrderController::class, 'show'])->name('admin.order.show');
+            Route::get('/{invoice}/invoice', [OrderController::class, 'generateInvoice'])->name('admin.order.generateInvoice');
+            Route::put('/{id}/confirmationSendingPackage', [OrderController::class, 'confirmationSendingPackage'])->name('admin.order.confirmationSendingPackage');
+        });
+
+        Route::prefix('renteds')->group(function () {
+            Route::get('/', [ListRentedController::class, 'index'])->name('admin.rented');
+            Route::get('/{invoice}/details', [ListRentedController::class, 'show'])->name('admin.rented.show');
         });
     });
 
