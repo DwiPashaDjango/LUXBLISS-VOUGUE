@@ -64,9 +64,7 @@
                             Alamat Saya
                         </h4>
                         <hr class="divide">
-                        <textarea name="alamat" id="alamat" style="border: 2px dashed #198754; padding: 10px; border-radius: 2px" rows="5" cols="5" class="form-control">
-                            {{Auth::user()->alamat}}
-                        </textarea>
+                        <textarea name="alamat" id="alamat" style="border: 2px dashed #198754; padding: 10px; border-radius: 2px" rows="5" cols="5" class="form-control">{{Auth::user()->alamat}}</textarea>
 
                         <button type="submit" class="btn btn-primary w-100 mt-3">Simpan</button>
                     </div>

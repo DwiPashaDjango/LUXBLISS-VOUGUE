@@ -92,14 +92,15 @@
                                         $startDate = \Carbon\Carbon::parse($item->start_date);
                                         $endDates = \Carbon\Carbon::parse($item->end_date);
 
-                                        $numberOfDay = $now->diffInDays($endDates);
+                                        $numberOfDay = $now->isAfter($endDates);
 
                                         $jumlahHari = $numberOfDay;
 
                                         $endDate = $item->end_date;
 
                                         $denda = 0;
-                                        if ($now->greaterThan($endDate)) {
+                                        if ($now->isAfter($endDate)) { 
+                                            $jumlahHari = $now->diffInDays($endDate); 
                                             $denda = 20000 * $jumlahHari;
                                         }
                                     @endphp

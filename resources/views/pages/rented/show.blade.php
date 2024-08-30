@@ -26,14 +26,15 @@
         $startDate = \Carbon\Carbon::parse($rents->start_date);
         $endDates = \Carbon\Carbon::parse($rents->end_date);
 
-        $numberOfDay = $now->diffInDays($endDates);
+        $numberOfDay = $now->isAfter($endDates);
 
         $jumlahHari = $numberOfDay;
 
         $endDate = $rents->end_date;
 
         $denda = 0;
-        if ($now->greaterThan($endDate)) {
+        if ($now->isAfter($endDate)) { 
+            $jumlahHari = $now->diffInDays($endDate); 
             $denda = 20000 * $jumlahHari;
         }
     @endphp
@@ -331,7 +332,7 @@
                                     <tr>
                                         <td style="width: 30%; padding-bottom: 8px">Denda</td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
-                                        @if ($now->greaterThan($endDate))
+                                        @if ($now->diffInDays($endDate))
                                             <td style="width: 30%; padding-bottom: 8px">Rp. {{number_format($denda)}}</td>
                                         @else
                                             <td style="width: 30%; padding-bottom: 8px">Rp. 0</td>
@@ -343,7 +344,7 @@
                                         </td>
                                         <td style="width: 30%; padding-bottom: 8px"></td>
                                         <td style="width: 30%; padding-bottom: 8px">
-                                            @if ($now->greaterThan($endDate))
+                                            @if ($now->diffInDays($endDate))
                                                 <input type="hidden" name="total_denda" id="total_denda" value="{{$denda}}">
                                                 <h6>Rp. {{number_format($denda)}}</h6>
                                             @else

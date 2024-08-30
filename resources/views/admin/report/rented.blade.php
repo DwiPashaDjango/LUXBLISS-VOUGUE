@@ -106,7 +106,7 @@
                                     {{$selisih}}
                                 </td>
                                 <td>
-                                    {{number_format($item->denda->total_denda)}}
+                                    {{$item->denda ? number_format($item->denda->total_denda) : 0}}
                                 </td>
                             </tr>
                         @empty
