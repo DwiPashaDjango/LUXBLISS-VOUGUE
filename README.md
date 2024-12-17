@@ -40,7 +40,6 @@ Setelah itu tinggal jalankan server aplikasi dengan cara mengetikan code dibawah
 php artisan serve
 ```
 
-
-buymeacoffee.com/dwipasha
-
 Lalu enjoy dan gunakan aplikasi sebaik-baiknya
+
+(https://buymeacoffee.com/dwipasha)
